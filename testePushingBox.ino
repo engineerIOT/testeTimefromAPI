@@ -8,22 +8,20 @@ static byte mymac[] = {0x24, 0x99, 0x46, 0xAD, 0x30, 0x31}; // Be sure this addr
 char DEVID1[] = "beef1337beef1337";        //Scenario : "The mailbox is open"
 
 //Numeric Pin where you connect your switch
-uint8_t pinDevid1 = 3;  // Example : the mailbox switch is connect to the Pin 3
+uint8_t pinDevid1 = 4;  // Example : the mailbox switch is connect to the Pin 3
+boolean pinDevid1State = false;  // Save the last state of the Pin for DEVID1
 
 // Debug mode
 boolean DEBUG = true;
-///////
-//End//
-///////
+
 
 const char website[] PROGMEM = "moty22.co.uk";
 byte Ethernet::buffer[700];
 Stash stash;
-boolean pinDevid1State = false;  // Save the last state of the Pin for DEVID1
+
 
 const char* resposta;
 char texto[256];
-char teste[256];
 
 void setup () {
   Serial.begin(9600);
@@ -109,9 +107,7 @@ static void my_callback (byte status, word off, word len) {
   sprintf(texto, "{\"ID\": %s}" , (const char*)resposta);
   Serial.println(texto);
 
-
-
-  const char ch = 'Date:';
+  const char ch = 'e:';
   char *ret;
   ret = strchr(texto, ch);
   Serial.println(ret);
@@ -120,6 +116,4 @@ static void my_callback (byte status, word off, word len) {
   memset(dest, '\0', sizeof(dest));
   strncpy(dest, ret, 80);
   Serial.println(dest);
-
-
 }
