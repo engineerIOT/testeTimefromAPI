@@ -1,14 +1,7 @@
-////
-//
-// General code from http://www.pushingbox.com for Arduino + Ethernet Shield (ENC28J60)
-// Library EtherCard from https://github.com/jcw/ethercard is under mit license
-//
-////
 #include <EtherCard.h>
+#include <stdio.h>
+#include <string.h>
 
-/////////////////
-// MODIFY HERE //
-/////////////////
 static byte mymac[] = {0x24, 0x99, 0x46, 0xAD, 0x30, 0x31}; // Be sure this address is unique in your network
 
 //Your secret DevID from PushingBox.com. You can use multiple DevID  on multiple Pin if you want
@@ -31,6 +24,7 @@ boolean pinDevid1State = false;  // Save the last state of the Pin for DEVID1
 const char* resposta;
 char texto[256];
 char teste[256];
+
 void setup () {
   Serial.begin(9600);
   pinMode(pinDevid1, INPUT);
@@ -92,11 +86,6 @@ void loop () {
   }
 
 
-
-
-
-
-
   if (digitalRead(pinDevid1) == LOW && pinDevid1State == true) // switch on pinDevid1 is OFF
   {
     if (DEBUG) {
@@ -119,5 +108,15 @@ static void my_callback (byte status, word off, word len) {
   Serial.println("FIM REQUISICAO");
   sprintf(texto, "{\"ID\": %s}" , (const char*)resposta);
   Serial.println(texto);
+
+
+  const char str[] = "http://www.tutorialspoint.com";
+  const char ch = 'Date:';
+  char *ret;
+
+  ret = strchr(texto, ch);
+
+  Serial.println(ret);
+
 
 }
