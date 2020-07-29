@@ -110,13 +110,16 @@ static void my_callback (byte status, word off, word len) {
   Serial.println(texto);
 
 
-  const char str[] = "http://www.tutorialspoint.com";
+
   const char ch = 'Date:';
   char *ret;
-
   ret = strchr(texto, ch);
-
   Serial.println(ret);
+
+  char dest[80];
+  memset(dest, '\0', sizeof(dest));
+  strncpy(dest, ret, 80);
+  Serial.println(dest);
 
 
 }
